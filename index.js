@@ -10,7 +10,7 @@ const productsRouter = require('./src/routes/products')
 
 
 const corsOptions = {
-  origin: 'http://127.0.0.1:5500',
+  origin: 'https://hyung-2.github.io',
   credentials: true
 }
 
