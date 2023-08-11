@@ -27,6 +27,11 @@ const productSchema = new Schema({
     required: true,
     ref: 'User'
   },
+  orderUser: {
+    type: ObjectId,
+    ref: 'orderUser',
+    default: null,
+  },
   order: {
     type: Boolean,
     default: false,

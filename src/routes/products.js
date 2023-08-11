@@ -135,6 +135,7 @@ router.put('/order/:id', isAuth, expressAsyncHandler(async (req, res, next) => {
     console.log(isSold)
     isSold.order = true
     isSold.orderDate = new Date()
+    isSold.orderUser = req.user._id
     isSold.lastModifiedaAt = isSold.order ? isSold.orderDate : isSold.lastModifiedaAt
 
     const soldProduct = await isSold.save()
@@ -147,6 +148,7 @@ router.put('/order/:id', isAuth, expressAsyncHandler(async (req, res, next) => {
     console.log(isSold)
     isSold.order = false
     isSold.orderDate = null
+    isSold.orderUser = null
     isSold.lastModifiedaAt = isSold.order ? isSold.lastModifiedaAt : new Date()
 
     const returnProduct = await isSold.save()
