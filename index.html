@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div><canvas id="myChart"></canvas></div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQ1ZjJmNGYzNmNiMGQ5ODQ2Y2RiZGEiLCJuYW1lIjoi6rSA66as7J6QIiwiZW1haWwiOiJsZWVqYUBnbWFpbC5jb20iLCJpc0FkbWluIjp0cnVlLCJjcmVhdGVkQXQiOiIyMDIzLTA4LTExVDA4OjM2OjA0LjY1MloiLCJpYXQiOjE2OTE3NDMxMzIsImV4cCI6MTY5MTgyOTUzMiwiaXNzIjoiaHl1bmcifQ.Mf5auUiXjed1gNEvrcJMWlY6g019Zk1P-brvDbzv2rk'
+
+fetch('http://127.0.0.1:5001/api/products/group/category', {
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  }
+})
+  .then(res => res.json())
+  .then(data => {
+    console.log(data)
+
+    const group = data.docs
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+      type: 'bar', 
+      data: {
+        labels: group.filter(item => item._id).map(item => item._id), 
+        datasets: [{
+          label: '# of Todos',
+          data: group.map(item => item.count), 
+          borderWidth: 1,
+          backgroundColor: 'pink'
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  })
+
+  </script>
+</body>
+</html>
